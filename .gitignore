@@ -50,3 +50,6 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+Geodesy-CSharp/Geodesy-CSharp/obj/
+Geodesy-CSharp/Geodesy-CSharp/bin/
+Geodesy-CSharp/.vs/Geodesy-CSharp/v16/
