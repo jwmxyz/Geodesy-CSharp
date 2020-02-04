@@ -53,3 +53,10 @@ dkms.conf
 Geodesy-CSharp/Geodesy-CSharp/obj/
 Geodesy-CSharp/Geodesy-CSharp/bin/
 Geodesy-CSharp/.vs/Geodesy-CSharp/v16/
+Geodesy-CSharp/Geodesy.Library/obj/
+Geodesy-CSharp/Geodesy.Tests/bin/Debug/netcoreapp3.1/Geodesy.Tests.deps.json
+Geodesy-CSharp/Geodesy.Tests/bin/Debug/netcoreapp3.1/Geodesy.Tests.runtimeconfig.dev.json
+Geodesy-CSharp/Geodesy.Tests/bin/
+Geodesy-CSharp/Geodesy.Tests/obj/
+Geodesy-CSharp/Geodesy.Library/bin/
+Geodesy-CSharp/.vs/Geodesy-CSharp/DesignTimeBuild/.dtbcache
