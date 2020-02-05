@@ -60,3 +60,6 @@ Geodesy-CSharp/Geodesy.Tests/bin/
 Geodesy-CSharp/Geodesy.Tests/obj/
 Geodesy-CSharp/Geodesy.Library/bin/
 Geodesy-CSharp/.vs/Geodesy-CSharp/DesignTimeBuild/.dtbcache
+Geodesy-CSharp/Geodesy.API/obj/Geodesy.API.csproj.nuget.g.props
+Geodesy-CSharp/Geodesy.API/obj/Geodesy.API.csproj.nuget.dgspec.json
+Geodesy-CSharp/Geodesy.API/obj/
