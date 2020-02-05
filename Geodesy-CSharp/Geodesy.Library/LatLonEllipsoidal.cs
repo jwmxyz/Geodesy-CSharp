@@ -7,6 +7,7 @@
  * www.movable-type.co.uk/scripts/geodesy-library.html#latlon-ellipsoidal                         
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
 using Geodesy.Library.Classes;
+using Geodesy.Library.Classes.Datums;
 using Geodesy.Library.Extensions;
 using Geodesy.Library.Helpers;
 using System;
@@ -15,14 +16,6 @@ namespace Geodesy.Library
 {
     public class LatLonEllipsoidal
     {
-
-        private static class WGS84Ellipsoid
-        {
-            public const int A = 6378137;
-            public const double B = 6356752.314245;
-            public const double F = 0.0033528106647475;
-        }
-
         private double _latitude, _longitude, _height;
 
         public LatLonEllipsoidal(double latitude, double longitude, double height = 0)
@@ -31,7 +24,6 @@ namespace Geodesy.Library
             _longitude = DMSHelper.Wrap180(longitude);
             _height = height;
         }
-
 
         /*
         * Latitude in degrees north from equator (including aliases lat, latitude): can be set as
