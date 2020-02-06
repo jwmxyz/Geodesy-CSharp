@@ -8,7 +8,17 @@ namespace Geodesy.Library.Extensions
     {
         public static double ToRadians(this double val)
         {
-            return (Math.PI / 180) * val;
+            return Math.PI / 180 * val;
+        }
+
+        public static double ToRadians(this int val)
+        {
+            return Math.PI / 180 * val;
+        }
+
+        public static double ToDegrees(this double val)
+        {
+            return val * 180 / Math.PI;
         }
     }
 }
