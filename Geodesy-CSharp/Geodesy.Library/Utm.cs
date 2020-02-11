@@ -12,8 +12,56 @@ namespace Geodesy.Library
         private int _zone;
         private double _easting, _northing;
 
+        private const string ERROR_MESSAGE = "Invalid UTM string";
+
+        /// <summary>
+        /// Constructor for a UTM object
+        /// </summary>
+        /// <param name="zone">The zone of the utm grid.</param>
+        /// <param name="hemisphere">The hemisphere that the grid reference falls in.</param>
+        /// <param name="easting">Easting of the grid reference.</param>
+        /// <param name="northing">Northing of the grid reference.</param>
         public Utm(int zone, char hemisphere, double easting, double northing)
         {
+            _zone = zone;
+            _hemisphere = char.ToUpper(hemisphere);
+            _easting = easting;
+            _northing = northing;
+        }
+
+        /// <summary>
+        /// Constructor that will take a string and create a new UTM object.
+        /// </summary>
+        /// <param name="utmString">The utm string that we want convert into an object.</param>
+        public Utm(string utmString)
+        {
+            var stringArray = utmString.Split(' ');
+
+            if (stringArray == null || stringArray.Length != 4)
+            {
+                throw new Exception($"{ERROR_MESSAGE} {utmString} - format incorrect.");
+            }
+
+            if(!int.TryParse(stringArray[0], out int zone))
+            {
+                throw new Exception($"{ERROR_MESSAGE} {utmString} - Zone is not a number.");
+            }
+
+            if(char.TryParse(stringArray[1], out char hemisphere))
+            {
+                throw new Exception($"{ERROR_MESSAGE} {utmString} - Should be a single char.");
+            }
+
+            if(!double.TryParse(stringArray[2], out double easting))
+            {
+                throw new Exception($"{ERROR_MESSAGE} {utmString} - Easting should be a number");
+            }
+
+            if (!double.TryParse(stringArray[2], out double northing))
+            {
+                throw new Exception($"{ERROR_MESSAGE} {utmString} - Northing should be a number");
+            }
+
             _zone = zone;
             _hemisphere = char.ToUpper(hemisphere);
             _easting = easting;
@@ -126,7 +174,7 @@ namespace Geodesy.Library
 
             var latLong = new LatLon_Utm(lat, lon, 0);
 
-            // ... and add the convergence and scale into the LatLon object ... wonderful JavaScript!
+            // ... and add the convergence and scale into the LatLon object!
             //latLong.convergence = convergence;
             //latLong.scale = scale;
             return latLong;
