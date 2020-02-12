@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Geodesy.Library;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 namespace Geodesy_CSharp.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class UtmController : ControllerBase
     {
         private readonly ILogger<UtmController> _logger;
@@ -18,11 +19,24 @@ namespace Geodesy_CSharp.Controllers
             _logger = logger;
         }
 
-        [HttpPost]
-        [Produces("application/json")]
-        public IActionResult UtmToLatLon()
+        /// <summary>
+        /// Will convert a given UTM string into the corresponding Latitude and Longitude Coordinates.
+        /// </summary>
+        /// <param name="utmReference">The string UTM reference</param>
+        /// <returns>The latitude/longitude points or an error string</returns>
+        [HttpGet("latlon/{utmReference}")]
+        [ProducesResponseType(typeof(LatLon_Utm), 200)]
+        [ProducesResponseType(typeof(string), 400)]
+        public IActionResult UtmToLatLon(string utmReference)
         {
-            return Ok();
+            try
+            {
+                return Ok(new Utm(utmReference).ToLatLon());
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }

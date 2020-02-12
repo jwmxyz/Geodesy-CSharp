@@ -1,4 +1,6 @@
 ﻿using Geodesy.Library.Classes.Datums;
+using Geodesy.Library.Enums;
+using Geodesy.Library.Exceptions;
 using Geodesy.Library.Extensions;
 using System;
 using System.Collections.Generic;
@@ -11,8 +13,6 @@ namespace Geodesy.Library
         private char _hemisphere;
         private int _zone;
         private double _easting, _northing;
-
-        private const string ERROR_MESSAGE = "Invalid UTM string";
 
         /// <summary>
         /// Constructor for a UTM object
@@ -37,33 +37,63 @@ namespace Geodesy.Library
         {
             var stringArray = utmString.Split(' ');
 
+            #region Parse information
             if (stringArray == null || stringArray.Length != 4)
             {
-                throw new Exception($"{ERROR_MESSAGE} {utmString} - format incorrect.");
+                throw new ReferenceParsingException(GetType(), utmString, "Invalid Format.");
             }
 
-            if(!int.TryParse(stringArray[0], out int zone))
+            if (!int.TryParse(stringArray[0], out int zone))
             {
-                throw new Exception($"{ERROR_MESSAGE} {utmString} - Zone is not a number.");
+                throw new ReferenceParsingException(GetType(), utmString, "Zone is not a number.");
+            }
+            
+            if (!char.TryParse(stringArray[1], out char hemisphere))
+            {
+                throw new ReferenceParsingException(GetType(), utmString, "Should be a single char.");
             }
 
-            if(char.TryParse(stringArray[1], out char hemisphere))
+            if (char.ToUpperInvariant(hemisphere) != 'S' && char.ToUpperInvariant(hemisphere) != 'N')
             {
-                throw new Exception($"{ERROR_MESSAGE} {utmString} - Should be a single char.");
+                throw new ReferenceParsingException(GetType(), utmString, "Hemisphere should be N or S.");
             }
 
-            if(!double.TryParse(stringArray[2], out double easting))
+            if (!double.TryParse(stringArray[2], out double easting))
             {
-                throw new Exception($"{ERROR_MESSAGE} {utmString} - Easting should be a number");
+                throw new ReferenceParsingException(GetType(), utmString, "Easting should be a number.");
             }
 
-            if (!double.TryParse(stringArray[2], out double northing))
+            if (!double.TryParse(stringArray[3], out double northing))
             {
-                throw new Exception($"{ERROR_MESSAGE} {utmString} - Northing should be a number");
+                throw new ReferenceParsingException(GetType(), utmString, "Northing should be a number.");
             }
+            #endregion
+
+            #region Check Information
+
+            if (!(1 <= zone && zone <= 60))
+            {
+                throw new InvalidReferencePropertyException(GetType(), UtmEnum.ZONE, utmString);
+            }
+
+            if (!(0 <= easting && easting <= 1000e3))
+            {
+                throw new InvalidReferencePropertyException(GetType(), UtmEnum.EASTING, utmString);
+            }
+
+            if (char.ToUpperInvariant(hemisphere) == 'N' && !(0 <= northing && northing < 9328094))
+            {
+                throw new InvalidReferencePropertyException(GetType(), UtmEnum.NORTHING, utmString);
+            }
+
+            if (char.ToUpperInvariant(hemisphere) == 'S' && !(1118414 < northing && northing <= 10000e3))
+            {
+                throw new InvalidReferencePropertyException(GetType(), UtmEnum.NORTHING, utmString);
+            }
+            #endregion
 
             _zone = zone;
-            _hemisphere = char.ToUpper(hemisphere);
+            _hemisphere = char.ToUpperInvariant(hemisphere);
             _easting = easting;
             _northing = northing;
         }
@@ -145,7 +175,7 @@ namespace Geodesy.Library
             double p = 1;
             for (int j = 1; j <= 6; j++) p -= 2 * j * β[j].GetValueOrDefault() * Math.Cos(2 * j * ξ) * Math.Cosh(2 * j * η);
             double q = 0;
-            for (int j = 1; j <= 6; j++) q += 2 * j * β[j].GetValueOrDefault() * Math.Sin(2 * j * ξ) * Math.Sinh(2 * j *η);
+            for (int j = 1; j <= 6; j++) q += 2 * j * β[j].GetValueOrDefault() * Math.Sin(2 * j * ξ) * Math.Sinh(2 * j * η);
 
             var γʹ = Math.Atan(Math.Tan(ξʹ) * Math.Tanh(ηʹ));
             var γʺ = Math.Atan2(q, p);
