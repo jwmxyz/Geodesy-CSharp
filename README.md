@@ -4,6 +4,11 @@
 
 Todo
 
+### Features
+
+- Swagger
+- Travis CI
+
 ### Setup
 
 Todo
