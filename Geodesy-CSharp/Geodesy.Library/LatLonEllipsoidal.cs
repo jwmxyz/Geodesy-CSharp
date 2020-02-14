@@ -6,6 +6,7 @@
  * www.movable-type.co.uk/scripts/latlong-convert-coords.html                                     
  * www.movable-type.co.uk/scripts/geodesy-library.html#latlon-ellipsoidal                         
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+
 using Geodesy.Library.Classes;
 using Geodesy.Library.Classes.Datums;
 using Geodesy.Library.Extensions;
@@ -71,7 +72,6 @@ namespace Geodesy.Library
                 _height = value;
             }
         }
-
 
         /// <summary>
         /// Converts ‘this’ point from (geodetic) latitude/longitude coordinates to (geocentric)
