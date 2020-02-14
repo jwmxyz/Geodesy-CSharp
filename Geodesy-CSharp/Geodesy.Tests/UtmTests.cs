@@ -1,4 +1,5 @@
 ﻿using Geodesy.Library;
+using Geodesy.Library.Enums;
 using Geodesy.Library.Exceptions;
 using Xunit;
 
@@ -47,39 +48,39 @@ namespace Geodesy.Tests
         [Fact]
         public void ErrorIfZoneAboveSixty()
         {
-            Assert.Throws<InvalidReferencePropertyException>(() => new Utm("99 N 448251 5411932"));
+            Assert.Throws<InvalidReferencePropertyException<UtmEnum>>(() => new Utm("99 N 448251 5411932"));
         }
 
         [Fact]
         public void ErrorIfEastingIsAboveMax()
         {
             var testValue = 10000e3 + 1;
-            Assert.Throws<InvalidReferencePropertyException>(() => new Utm($"99 N {testValue.ToString()} 5411932"));
+            Assert.Throws<InvalidReferencePropertyException<UtmEnum>>(() => new Utm($"99 N {testValue.ToString()} 5411932"));
         }
 
         [Fact]
         public void ErrorIfNorthingIsAboveMaxNorth()
         {
-            Assert.Throws<InvalidReferencePropertyException>(() => new Utm($"99 N 448251 9328095"));
+            Assert.Throws<InvalidReferencePropertyException<UtmEnum>>(() => new Utm($"99 N 448251 9328095"));
         }
 
         [Fact]
         public void ErrorIfNorthingIsBelowMinNorth()
         {
-            Assert.Throws<InvalidReferencePropertyException>(() => new Utm($"99 N 448251 -88"));
+            Assert.Throws<InvalidReferencePropertyException<UtmEnum>>(() => new Utm($"99 N 448251 -88"));
         }
 
         [Fact]
         public void ErrorIfNorthingIsAboveMaxSouth()
         {
             var testValue = 10000e3 + 1;
-            Assert.Throws<InvalidReferencePropertyException>(() => new Utm($"99 S 448251 {testValue.ToString()}"));
+            Assert.Throws<InvalidReferencePropertyException<UtmEnum>>(() => new Utm($"99 S 448251 {testValue.ToString()}"));
         }
 
         [Fact]
         public void ErrorIfNorthingIsBelowMinSouth()
         {
-            Assert.Throws<InvalidReferencePropertyException>(() => new Utm($"99 S 448251 1118413"));
+            Assert.Throws<InvalidReferencePropertyException<UtmEnum>>(() => new Utm($"99 S 448251 1118413"));
         }
     }
 }

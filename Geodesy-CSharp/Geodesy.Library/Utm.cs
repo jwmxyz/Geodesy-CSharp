@@ -3,16 +3,19 @@ using Geodesy.Library.Enums;
 using Geodesy.Library.Exceptions;
 using Geodesy.Library.Extensions;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Geodesy.Library
 {
     public class Utm
     {
-        private char _hemisphere;
-        private int _zone;
-        private double _easting, _northing;
+
+        #region Getters
+        public double Northing { get; }
+        public double Easting { get; }
+        public int Zone { get; }
+        public char Hemisphere { get; }
+        #endregion
+
 
         /// <summary>
         /// Constructor for a UTM object
@@ -23,10 +26,10 @@ namespace Geodesy.Library
         /// <param name="northing">Northing of the grid reference.</param>
         public Utm(int zone, char hemisphere, double easting, double northing)
         {
-            _zone = zone;
-            _hemisphere = char.ToUpper(hemisphere);
-            _easting = easting;
-            _northing = northing;
+            Zone = zone;
+            Hemisphere = char.ToUpper(hemisphere);
+            Easting = easting;
+            Northing = northing;
         }
 
         /// <summary>
@@ -73,29 +76,29 @@ namespace Geodesy.Library
 
             if (!(1 <= zone && zone <= 60))
             {
-                throw new InvalidReferencePropertyException(GetType(), UtmEnum.ZONE, utmString);
+                throw new InvalidReferencePropertyException<UtmEnum>(GetType(), UtmEnum.ZONE, utmString);
             }
 
             if (!(0 <= easting && easting <= 1000e3))
             {
-                throw new InvalidReferencePropertyException(GetType(), UtmEnum.EASTING, utmString);
+                throw new InvalidReferencePropertyException<UtmEnum>(GetType(), UtmEnum.EASTING, utmString);
             }
 
             if (char.ToUpperInvariant(hemisphere) == 'N' && !(0 <= northing && northing < 9328094))
             {
-                throw new InvalidReferencePropertyException(GetType(), UtmEnum.NORTHING, utmString);
+                throw new InvalidReferencePropertyException<UtmEnum>(GetType(), UtmEnum.NORTHING, utmString);
             }
 
             if (char.ToUpperInvariant(hemisphere) == 'S' && !(1118414 < northing && northing <= 10000e3))
             {
-                throw new InvalidReferencePropertyException(GetType(), UtmEnum.NORTHING, utmString);
+                throw new InvalidReferencePropertyException<UtmEnum>(GetType(), UtmEnum.NORTHING, utmString);
             }
             #endregion
 
-            _zone = zone;
-            _hemisphere = char.ToUpperInvariant(hemisphere);
-            _easting = easting;
-            _northing = northing;
+            Zone = zone;
+            Hemisphere = char.ToUpperInvariant(hemisphere);
+            Easting = easting;
+            Northing = northing;
         }
 
         /// <summary>
@@ -112,8 +115,8 @@ namespace Geodesy.Library
 
             var k0 = 0.9996; // UTM scale on the central meridian
 
-            var x = _easting - falseEasting;  // make x ± relative to central meridian
-            var y = _hemisphere.Equals("S") ? _northing - falseNorthing : _northing; // make y ± relative to equator
+            var x = Easting - falseEasting;  // make x ± relative to central meridian
+            var y = Hemisphere.Equals("S") ? Northing - falseNorthing : Northing; // make y ± relative to equator
 
             // ---- from Karney 2011 Eq 15-22, 36:
             var e = Math.Sqrt(WGS84Ellipsoid.F * (2 - WGS84Ellipsoid.F)); // eccentricity
@@ -188,7 +191,7 @@ namespace Geodesy.Library
             var k = k0 * kʹ * kʺ;
             // ------------
 
-            var λ0 = (((_zone - 1) * 6) - 180 + 3).ToRadians(); // longitude of central meridian
+            var λ0 = (((Zone - 1) * 6) - 180 + 3).ToRadians(); // longitude of central meridian
 
             λ += λ0; // move λ from zonal to global coordinates
 
@@ -208,6 +211,15 @@ namespace Geodesy.Library
             //latLong.convergence = convergence;
             //latLong.scale = scale;
             return latLong;
+        }
+
+        /// <summary>
+        /// To string of the current object
+        /// </summary>
+        /// <returns>A String representation of this object.</returns>
+        public override string ToString()
+        {
+            return $"{Zone} {Hemisphere} {Easting} {Northing}";
         }
     }
 }

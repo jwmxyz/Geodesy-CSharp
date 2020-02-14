@@ -73,7 +73,6 @@ namespace Geodesy.Library
             }
         }
 
-
         /// <summary>
         /// Converts ‘this’ point from (geodetic) latitude/longitude coordinates to (geocentric)
         /// </summary>
