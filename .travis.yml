@@ -14,7 +14,7 @@ script:
  - dotnet build
  - dotnet test
  - docker build --no-cache -t jwmxyz/coordsapi .
- - docker tag jwmxyz/coordsapi:latest jwmxyz/coordsapi:v1
+ - docker tag jwmxyz/coordsapi jwmxyz/coordsapi:latest
  - docker push jwmxyz/coordsapi
 
  
