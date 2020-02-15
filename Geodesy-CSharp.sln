@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Geodesy.API", "Geodesy.API\Geodesy.API.csproj", "{189C5BF0-B203-4E0E-9F8E-A0EA94AA0A42}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Geodesy.Library", "Geodesy.Library\Geodesy.Library.csproj", "{7BE1F7EC-52BD-427E-B60C-B91DBE7582A9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geodesy.Library", "Geodesy.Library\Geodesy.Library.csproj", "{7BE1F7EC-52BD-427E-B60C-B91DBE7582A9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Geodesy.Tests", "Geodesy.Tests\Geodesy.Tests.csproj", "{701C70E5-EB07-4BDD-A40A-5B0EC8D25922}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geodesy.Tests", "Geodesy.Tests\Geodesy.Tests.csproj", "{701C70E5-EB07-4BDD-A40A-5B0EC8D25922}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

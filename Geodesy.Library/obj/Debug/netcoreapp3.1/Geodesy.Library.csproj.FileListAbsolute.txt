@@ -1,0 +1,8 @@
+C:\Repos\Geodesy-CSharp\Geodesy-CSharp\Geodesy.Library\bin\Debug\netcoreapp3.1\Geodesy.Library.deps.json
+C:\Repos\Geodesy-CSharp\Geodesy-CSharp\Geodesy.Library\bin\Debug\netcoreapp3.1\Geodesy.Library.dll
+C:\Repos\Geodesy-CSharp\Geodesy-CSharp\Geodesy.Library\bin\Debug\netcoreapp3.1\Geodesy.Library.pdb
+C:\Repos\Geodesy-CSharp\Geodesy-CSharp\Geodesy.Library\obj\Debug\netcoreapp3.1\Geodesy.Library.AssemblyInfoInputs.cache
+C:\Repos\Geodesy-CSharp\Geodesy-CSharp\Geodesy.Library\obj\Debug\netcoreapp3.1\Geodesy.Library.AssemblyInfo.cs
+C:\Repos\Geodesy-CSharp\Geodesy-CSharp\Geodesy.Library\obj\Debug\netcoreapp3.1\Geodesy.Library.dll
+C:\Repos\Geodesy-CSharp\Geodesy-CSharp\Geodesy.Library\obj\Debug\netcoreapp3.1\Geodesy.Library.pdb
+C:\Repos\Geodesy-CSharp\Geodesy-CSharp\Geodesy.Library\obj\Debug\netcoreapp3.1\Geodesy.Library.csprojAssemblyReference.cache
