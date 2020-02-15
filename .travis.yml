@@ -2,9 +2,19 @@
 mono: none
 dotnet: 3.1.101
 
+services:
+  - docker
+
 install:
+- export DOTNET_CLI_TELEMETRY_OPTOUT=1
 - dotnet restore
+
 
 script:
  - dotnet build
  - dotnet test
+ - docker build --no-cache -t jwmxyz/coordsapi
+ - docker tag jwmxyz/coordsapi:latest
+ - docker push jwmxyz/coordsapi
+
+ 
