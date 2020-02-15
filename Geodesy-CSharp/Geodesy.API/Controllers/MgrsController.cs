@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Geodesy.Library;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace Geodesy_CSharp.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class MgrsController : ControllerBase
     {
         private readonly ILogger<MgrsController> _logger;
@@ -18,17 +16,44 @@ namespace Geodesy_CSharp.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
-        [Produces("application/json")]
-        public ActionResult Get()
+        /// <summary>
+        /// Will convert a given MGRS to a latitude / longitude coordinate
+        /// </summary>
+        /// <param name="mgrsReference">The string Mgrs reference</param>
+        /// <returns>The latitude/longitude points or an error string</returns>
+        [HttpGet("latlon/{mgrsReference}")]
+        [ProducesResponseType(typeof(Mgrs), 200)]
+        [ProducesResponseType(typeof(string), 400)]
+        public IActionResult MgrsToLatLon(string mgrsReference)
         {
-            return Ok();
+            try
+            {
+                return Ok(new Mgrs(mgrsReference).ToUtm().ToLatLon());
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
-        [HttpPost]
-        public ActionResult Post()
+        /// <summary>
+        /// Will convert a given MGRS to a UTM coordinate
+        /// </summary>
+        /// <param name="mgrsReference">The string Mgrs reference</param>
+        /// <returns>The UTM object or an error string</returns>
+        [HttpGet("utm/{mgrsReference}")]
+        [ProducesResponseType(typeof(Utm), 200)]
+        [ProducesResponseType(typeof(string), 400)]
+        public IActionResult MgrsToUtm(string mgrsReference)
         {
-            return Ok();
+            try
+            {
+                return Ok(new Mgrs(mgrsReference).ToUtm());
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }

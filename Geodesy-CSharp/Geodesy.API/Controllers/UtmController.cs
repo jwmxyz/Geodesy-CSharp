@@ -35,5 +35,25 @@ namespace Geodesy_CSharp.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        /// <summary>
+        /// Will convert a given UTM string into a MGRS object.
+        /// </summary>
+        /// <param name="utmReference">The string UTM reference</param>
+        /// <returns>The MGRS point or an error string</returns>
+        [HttpGet("mgrs/{utmReference}")]
+        [ProducesResponseType(typeof(Mgrs), 200)]
+        [ProducesResponseType(typeof(string), 400)]
+        public IActionResult UtmToMgrs(string utmReference)
+        {
+            try
+            {
+                return Ok(new Utm_Mgrs(utmReference).ToMgrs());
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 }

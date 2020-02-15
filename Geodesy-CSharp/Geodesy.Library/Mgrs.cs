@@ -22,25 +22,31 @@ namespace Geodesy.Library
         */
         private string[] _n100kLetters = new[] { "ABCDEFGHJKLMNPQRSTUV", "FGHJKLMNPQRSTUVABCDE" };
 
+        public int Zone { get; }
+        public char E100k { get; }
+        public char N100k { get; }
+        public char Band { get; }
+        public double Easting { get; }
+        public double Northing { get; }
 
-        private int _zone;
-        private char _e100k, _n100k, _band;
-        private double _easting, _northing;
 
-        public Mgrs(int zone, char band, char e100k, char n100k, double northing, double easting)
+        public Mgrs(int zone, char band, char e100k, char n100k, double northing, double easting) 
+            : this($"{zone}{band}{e100k}{n100k}{northing}{easting}")
         {
-            _zone = zone;
-            _band = band;
-            _e100k = e100k;
-            _n100k = n100k;
-            _northing = northing;
-            _easting = easting;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mgrsReference"></param>
         public Mgrs(string mgrsReference)
         {
 
             var formattedReference = mgrsReference.RemoveWhiteSpace();
+
+            if (formattedReference.Length < 5)
+            {
+                throw new ReferenceParsingException(GetType(), mgrsReference, "Invalid Format");
+            }
 
             var eastingNorthingSplit = formattedReference.Substring(5, formattedReference.Length-5);
             var subLength = eastingNorthingSplit.Length / 2;
@@ -101,12 +107,12 @@ namespace Geodesy.Library
             }
             #endregion
 
-            _zone = zone;
-            _band = band;
-            _e100k = e100k;
-            _n100k = n100k;
-            _easting = eastingDouble;
-            _northing = northingDouble;
+            Zone = zone;
+            Band = band;
+            E100k = e100k;
+            N100k = n100k;
+            Easting = eastingDouble;
+            Northing = northingDouble;
         }
 
 
@@ -116,18 +122,18 @@ namespace Geodesy.Library
         /// <returns>A Utm object converted from this MGRS.</returns>
         public Utm ToUtm()
         {
-            var hemisphere = char.ToUpper(_band) >= 'N' ? 'N' : 'S';
+            var hemisphere = char.ToUpper(Band) >= 'N' ? 'N' : 'S';
 
             // get easting specified by e100k (note +1 because eastings start at 166e3 due to 500km false origin)
-            var col = _e100kLetters[(_zone - 1) % 3].IndexOf(_e100k) + 1;
+            var col = _e100kLetters[(Zone - 1) % 3].IndexOf(E100k) + 1;
             var e100kNum = col * 100e3; // e100k in metres
 
             // get northing specified by n100k
-            var row = _n100kLetters[(_zone - 1) % 2].IndexOf(_n100k);
+            var row = _n100kLetters[(Zone - 1) % 2].IndexOf(N100k);
             var n100kNum = row * 100e3; // n100k in metres
 
             // get latitude of (bottom of) band
-            var latBand = (_latBands.IndexOf(_band) - 10) * 8;
+            var latBand = (_latBands.IndexOf(Band) - 10) * 8;
 
             // get northing of bottom of band, extended to include entirety of bottom-most 100km square
             var nBand = Math.Floor(new LatLon_Utm(latBand, 0).ToUtm().Northing / 100e3) * 100e3;
@@ -135,9 +141,18 @@ namespace Geodesy.Library
             // 100km grid square row letters repeat every 2,000km north; add enough 2,000km blocks to
             // get into required band
             var n2M = 0.0; // northing of 2,000km block
-            while (n2M + n100kNum + _northing < nBand) n2M += 2000e3;
+            while (n2M + n100kNum + Northing < nBand) n2M += 2000e3;
 
-            return new Utm(_zone, hemisphere, e100kNum + _easting, n2M + n100kNum + _northing);
+            return new Utm(Zone, hemisphere, e100kNum + Easting, n2M + n100kNum + Northing);
+        }
+
+        /// <summary>
+        /// To string method
+        /// </summary>
+        /// <returns>A string representation of this object.</returns>
+        public override string ToString()
+        {
+            return $"{Zone}{Band} {E100k}{N100k} {Northing} {Easting}";
         }
     }
 }
