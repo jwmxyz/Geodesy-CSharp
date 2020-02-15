@@ -13,7 +13,7 @@ install:
 script:
  - dotnet build
  - dotnet test
- - docker build --no-cache -t jwmxyz/coordsapi
+ - docker build build geodesy.API --no-cache -t jwmxyz/coordsapi
  - docker tag jwmxyz/coordsapi:latest
  - docker push jwmxyz/coordsapi
 
