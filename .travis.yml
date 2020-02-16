@@ -15,6 +15,7 @@ script:
  - dotnet test
  - docker build --no-cache -t jwmxyz/coordsapi .
  - docker tag jwmxyz/coordsapi jwmxyz/coordsapi:latest
- - docker push jwmxyz/coordsapi
+ - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" docker.io
+ - docker push jwmxyz/coordsapi 
 
  
