@@ -4,12 +4,17 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Geodesy_CSharp</RootNamespace>
     <UserSecretsId>fcf484b8-9fd9-4b71-bd43-da2c509e0945</UserSecretsId>
-    <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\Repos\Geodesy-CSharp\Geodesy-CSharp\Geodesy.API\Geodesy.API.xml</DocumentationFile>
+    <DocumentationFile>app/Geodesy.API.xml</DocumentationFile>
     <NoWarn>1701;1702;1591</NoWarn>
+    <OutputPath></OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>app/Geodesy.API.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
