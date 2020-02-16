@@ -53,3 +53,10 @@ dkms.conf
 Geodesy-CSharp/.vs/Geodesy-CSharp/v16/
 Geodesy-CSharp/.vs/Geodesy-CSharp/DesignTimeBuild/.dtbcache
 Geodesy.API/Dockerfile
+.vs/
+Geodesy.API/bin/
+Geodesy.API/obj/
+Geodesy.Library/bin/
+Geodesy.Library/obj/
+Geodesy.Tests/bin/
+Geodesy.Tests/obj/

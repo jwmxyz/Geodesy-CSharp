@@ -8,8 +8,13 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\Repos\Geodesy-CSharp\Geodesy-CSharp\Geodesy.API\Geodesy.API.xml</DocumentationFile>
+    <DocumentationFile>/app/bin/Debug/netcoreapp3.1/Geodesy.API.xml</DocumentationFile>
     <NoWarn>1701;1702;1591</NoWarn>
+    <OutputPath></OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>app/Geodesy.API.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
