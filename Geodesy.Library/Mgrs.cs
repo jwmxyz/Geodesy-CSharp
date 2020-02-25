@@ -29,7 +29,6 @@ namespace Geodesy.Library
         public double Easting { get; }
         public double Northing { get; }
 
-
         public Mgrs(int zone, char band, char e100k, char n100k, double northing, double easting) 
             : this($"{zone}{band}{e100k}{n100k}{northing}{easting}")
         {
@@ -114,7 +113,6 @@ namespace Geodesy.Library
             Easting = eastingDouble;
             Northing = northingDouble;
         }
-
 
         /// <summary>
         /// Method that will convert a MGRS to a UTM grid reference

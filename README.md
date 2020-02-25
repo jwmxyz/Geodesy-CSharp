@@ -1,6 +1,7 @@
 # Geodesy-CSharp
 
-todo add build
+Build status
+[![Build Status](https://travis-ci.com/jwmxyz/Geodesy-CSharp.svg?token=yE1jQHJ1CjkJeVSaVSDa&branch=master)](https://travis-ci.com/jwmxyz/Geodesy-CSharp)
 
 ### About
 
