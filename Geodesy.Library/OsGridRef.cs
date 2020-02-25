@@ -2,8 +2,6 @@
 using Geodesy.Library.Exceptions;
 using Geodesy.Library.Extensions;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Geodesy.Library
 {
@@ -76,8 +74,8 @@ namespace Geodesy.Library
                 throw new InvalidReferencePropertyException<OSGridRefEnum>(GetType(), OSGridRefEnum.Northing, osGridReference);
             }
 
-            var e = e100km + eastingDouble;
-            var n = n100km + northingDouble;
+            var e = int.Parse(e100km.ToString() + eastingDouble.ToString());
+            var n = int.Parse(n100km.ToString() + northingDouble.ToString());
 
             Easting = e;
             Northing = n;
