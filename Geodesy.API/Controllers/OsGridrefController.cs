@@ -35,6 +35,5 @@ namespace Geodesy_CSharp.Controllers
                 return BadRequest(e.Message);
             }
         }
-
     }
 }

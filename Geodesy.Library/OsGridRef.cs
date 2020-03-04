@@ -2,16 +2,19 @@
 using Geodesy.Library.Exceptions;
 using Geodesy.Library.Extensions;
 using System;
+using System.Linq;
 
 namespace Geodesy.Library
 {
-    public class OsGridRef
+    public sealed class OsGridRef
     {
         public string Descriptor { get; }
         public double Easting { get; }
         public double Northing { get; }
 
-        public OsGridRef(string descriptor, double easting, double northing)
+        private readonly int[] Digits = new int[] { 0, 2, 4, 6, 8, 10, 12, 14, 16 };
+
+        public OsGridRef(double easting, double northing)
         {
             if (easting < 0 || easting > 700e3)
             {
@@ -23,9 +26,13 @@ namespace Geodesy.Library
                 throw new InvalidReferencePropertyException<OSGridRefEnum>(GetType(), OSGridRefEnum.Northing, $"Invalid Northing {northing}");
             }
 
-            Descriptor = descriptor;
             Easting = easting;
             Northing = northing;
+        }
+
+        public OsGridRef(string descriptor, double easting, double northing) : this(easting, northing)
+        {
+            Descriptor = descriptor;
         }
 
         public OsGridRef(string osGridReference)
@@ -40,7 +47,7 @@ namespace Geodesy.Library
             var easting = eastingNorthing.Substring(0, eastingNorthingLength);
             var northing = eastingNorthing.Substring(eastingNorthingLength, eastingNorthingLength);
 
-            if(easting.Length != northing.Length)
+            if (easting.Length != northing.Length)
             {
                 throw new ReferenceParsingException(GetType(), osGridReference, "Invalid OsGridReference");
             }
@@ -53,13 +60,14 @@ namespace Geodesy.Library
             if (l2 > 7) l2--;
 
             // sanity check
-            if (l1 < 8 || l1 > 18) {
+            if (l1 < 8 || l1 > 18)
+            {
                 throw new ReferenceParsingException(GetType(), osGridReference, "Invalid OsGridReference");
             }
 
             // convert grid letters into 100km-square indexes from false origin (grid square SV):
             var e100km = ((l1 - 2) % 5) * 5 + (l2 % 5);
-            var n100km = (19 - Math.Floor((double) l1 / 5) * 5) - Math.Floor((double) l2 / 5);
+            var n100km = (19 - Math.Floor((double)l1 / 5) * 5) - Math.Floor((double)l2 / 5);
 
             var eastingPadded = easting.ToString().PadRight(5, '0');
             var northingPadded = northing.ToString().PadRight(5, '0');
@@ -122,11 +130,11 @@ namespace Geodesy.Library
 
             var tanφ = Math.Tan(φ);
             var tan2φ = tanφ * tanφ;
-            var tan4φ = tan2φ * tan2φ; 
+            var tan4φ = tan2φ * tan2φ;
             var tan6φ = tan4φ * tan2φ;
             var secφ = 1 / cosφ;
             var ν3 = ν * ν * ν;
-            var ν5 = ν3 * ν * ν; 
+            var ν5 = ν3 * ν * ν;
             var ν7 = ν5 * ν * ν;
             var VII = tanφ / (2 * ρ * ν);
             var VIII = tanφ / (24 * ρ * ν3) * (5 + 3 * tan2φ + η2 - 9 * tan2φ * η2);
@@ -138,10 +146,10 @@ namespace Geodesy.Library
 
             var dE = (Easting - E0);
             var dE2 = dE * dE;
-            var dE3 = dE2 * dE; 
+            var dE3 = dE2 * dE;
             var dE4 = dE2 * dE2;
             var dE5 = dE3 * dE2;
-            var dE6 = dE4 * dE2; 
+            var dE6 = dE4 * dE2;
             var dE7 = dE5 * dE2;
             φ = φ - VII * dE2 + VIII * dE4 - IX * dE6;
             var λ = λ0 + X * dE - XI * dE3 + XII * dE5 - XIIA * dE7;
@@ -149,6 +157,64 @@ namespace Geodesy.Library
             var point = new LatLon_OsGridRef(φ.ToDegrees(), λ.ToDegrees(), 0);
 
             return point;
+        }
+
+        public override string ToString()
+        {
+            return ToString(10);
+        }
+
+        public string ToString(int digits)
+        {
+            if (!Array.Exists(Digits, x => x == digits))
+            {
+                throw new Exception($"Digits must be one of {string.Join(",", Digits.Select(x => x.ToString()))}");
+            }
+
+
+            if (digits == 0)
+            {
+                var format = new { useGrouping = false, minimumIntegerDigits = 6, maximumFractionDigits = 3 };
+                var ePad = Easting;
+                var nPad = Northing;
+
+                return $"{ePad},${nPad}";
+            }
+
+            // get the 100km-grid indices
+            var e100km = Math.Floor(Easting / 100000);
+            var n100km = Math.Floor(Northing / 100000);
+
+            // translate those into numeric equivalents of the grid letters
+
+            var l1 = (19 - n100km) - (19 - n100km) % 5 + Math.Floor((e100km + 10) / 5);
+
+            var l2 = (19 - n100km) * 5 % 25 + e100km % 5;
+
+            // compensate for skipped 'I' and build grid letter-pairs
+
+            if (l1 > 7) l1++;
+
+            if (l2 > 7) l2++;
+
+            l1 += 'A';
+            l2 += 'A';
+
+            var letterPair = new string(new char[] { (char)l1, (char)l2 });
+
+            // strip 100km-grid indices from easting & northing, and reduce precision
+
+            var e = Math.Floor((Easting % 100000) / Math.Pow(10, 5 - (digits / 2)));
+
+            var n = Math.Floor((Northing % 100000) / Math.Pow(10, 5 - (digits / 2)));
+
+            // pad eastings & northings with leading zeros
+
+            var eString = e.ToString().PadLeft(digits / 2, '0');
+
+            var nString = n.ToString().PadLeft(digits / 2, '0');
+
+            return $"{letterPair} {eString} {nString}";
         }
     }
 }
