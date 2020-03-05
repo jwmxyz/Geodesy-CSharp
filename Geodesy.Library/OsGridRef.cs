@@ -161,7 +161,7 @@ namespace Geodesy.Library
 
         public override string ToString()
         {
-            return ToString(10);
+            return ToString(0);
         }
 
         public string ToString(int digits)
@@ -178,7 +178,7 @@ namespace Geodesy.Library
                 var ePad = Easting;
                 var nPad = Northing;
 
-                return $"{ePad},${nPad}";
+                return $"{ePad},{nPad}";
             }
 
             // get the 100km-grid indices
