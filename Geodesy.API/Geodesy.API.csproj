@@ -20,7 +20,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.10" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
-    <PackageReference Include="NLog.Config" Version="4.7.0-rc1" />
+    <PackageReference Include="NLog" Version="4.6.8" />
     <PackageReference Include="NLog.Web.AspNetCore" Version="4.9.0" />
     <PackageReference Include="NLog.Web.AspNetCore.Targets.Gelf" Version="1.2.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />
@@ -28,6 +28,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Geodesy.Library\Geodesy.Library.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="nlog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
