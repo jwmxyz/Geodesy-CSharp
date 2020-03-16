@@ -16,7 +16,6 @@ namespace Geodesy_CSharp.Controllers
         public OsGridrefController(ILogger<OsGridrefController> logger)
         {
             _logger = logger;
-            _logger.LogDebug(1, "NLog injected into HomeController");
         }
 
         /// <summary>
@@ -31,9 +30,6 @@ namespace Geodesy_CSharp.Controllers
         {
             try
             {
-                _logger.LogTrace("String");
-                _logger.LogDebug("String");
-                _logger.LogError("String");
                 return Ok(new OsGridRef(OsGridReference).ToLatLon());
             } catch (Exception e)
             {
