@@ -14,6 +14,11 @@ namespace Geodesy.Library
 
         private readonly int[] Digits = new int[] { 0, 2, 4, 6, 8, 10, 12, 14, 16 };
 
+        /// <summary>
+        /// Constructor for OsGridReference obtained from an easting an northing value.
+        /// </summary>
+        /// <param name="easting">The easting value</param>
+        /// <param name="northing">The northing value</param>
         public OsGridRef(double easting, double northing)
         {
             if (easting < 0 || easting > 700e3)
@@ -30,11 +35,21 @@ namespace Geodesy.Library
             Northing = northing;
         }
 
+        /// <summary>
+        /// Constructor for OsGridReference obtained from an easting an northing value, sets the descriptor.
+        /// </summary>
+        /// <param name="descriptor">The descriptor of os grid reference.</param>
+        /// <param name="easting">The easting value</param>
+        /// <param name="northing">The northing value</param>
         public OsGridRef(string descriptor, double easting, double northing) : this(easting, northing)
         {
             Descriptor = descriptor;
         }
 
+        /// <summary>
+        /// Constructor obtained from a string of an os grid reference.
+        /// </summary>
+        /// <param name="osGridReference">The os grid reference that will be parsed to return an object.</param>
         public OsGridRef(string osGridReference)
         {
             var gridRefFormatted = osGridReference.RemoveWhiteSpace();
@@ -159,11 +174,20 @@ namespace Geodesy.Library
             return point;
         }
 
+        /// <summary>
+        /// To string method
+        /// </summary>
+        /// <returns>A string method of this object.</returns>
         public override string ToString()
         {
             return ToString(0);
         }
 
+        /// <summary>
+        /// To string override setting the length of the string.
+        /// </summary>
+        /// <param name="digits">The length of the string</param>
+        /// <returns>A string representation of this object.</returns>
         public string ToString(int digits)
         {
             if (!Array.Exists(Digits, x => x == digits))

@@ -17,7 +17,6 @@ namespace Geodesy_CSharp
             }
             catch (Exception exception)
             {
-                //NLog: catch setup errors
                 logger.Error(exception, exception.Message);
                 throw;
             }
