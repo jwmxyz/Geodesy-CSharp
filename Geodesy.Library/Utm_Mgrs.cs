@@ -24,6 +24,10 @@ namespace Geodesy.Library
 
         }
 
+        /// <summary>
+        /// Method that will convert a UTM grid reference into a MGRS grid reference.
+        /// </summary>
+        /// <returns>A MGRS grid reference for the given UTM co-ordinates/</returns>
         public Mgrs ToMgrs()
         {
             var zone = Zone;
