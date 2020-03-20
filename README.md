@@ -13,6 +13,12 @@ This is a C# implementation of the [Geodesy](https://github.com/chrisveness/geod
 
 ### Setup
 
+##### nuget
+
+todo
+
+##### dev
+
 Todo
 
 ### API
