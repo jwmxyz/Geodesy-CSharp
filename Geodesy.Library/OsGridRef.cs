@@ -12,13 +12,17 @@ namespace Geodesy.Library
         public double Easting { get; }
         public double Northing { get; }
 
-        private readonly int[] Digits = new int[] { 0, 2, 4, 6, 8, 10, 12, 14, 16 };
+        public OsGridRef(string descriptor, double easting, double northing) : this(easting, northing)
+        {
+            Descriptor = descriptor;
+        }
 
         /// <summary>
         /// Constructor for OsGridReference obtained from an easting an northing value.
         /// </summary>
         /// <param name="easting">The easting value</param>
         /// <param name="northing">The northing value</param>
+
         public OsGridRef(double easting, double northing)
         {
             if (easting < 0 || easting > 700e3)
@@ -174,43 +178,14 @@ namespace Geodesy.Library
             return point;
         }
 
-        /// <summary>
-        /// To string method
-        /// </summary>
-        /// <returns>A string method of this object.</returns>
         public override string ToString()
         {
-            return ToString(0);
-        }
-
-        /// <summary>
-        /// To string override setting the length of the string.
-        /// </summary>
-        /// <param name="digits">The length of the string</param>
-        /// <returns>A string representation of this object.</returns>
-        public string ToString(int digits)
-        {
-            if (!Array.Exists(Digits, x => x == digits))
-            {
-                throw new Exception($"Digits must be one of {string.Join(",", Digits.Select(x => x.ToString()))}");
-            }
-
-
-            if (digits == 0)
-            {
-                var format = new { useGrouping = false, minimumIntegerDigits = 6, maximumFractionDigits = 3 };
-                var ePad = Easting;
-                var nPad = Northing;
-
-                return $"{ePad},{nPad}";
-            }
 
             // get the 100km-grid indices
             var e100km = Math.Floor(Easting / 100000);
             var n100km = Math.Floor(Northing / 100000);
 
             // translate those into numeric equivalents of the grid letters
-
             var l1 = (19 - n100km) - (19 - n100km) % 5 + Math.Floor((e100km + 10) / 5);
 
             var l2 = (19 - n100km) * 5 % 25 + e100km % 5;
@@ -221,24 +196,22 @@ namespace Geodesy.Library
 
             if (l2 > 7) l2++;
 
-            l1 += 'A';
-            l2 += 'A';
-
-            var letterPair = new string(new char[] { (char)l1, (char)l2 });
+            var letterPair = $"{Convert.ToChar((int) (l1 + 'A'))}{Convert.ToChar((int) (l2 + 'A'))}";
 
             // strip 100km-grid indices from easting & northing, and reduce precision
 
-            var e = Math.Floor((Easting % 100000) / Math.Pow(10, 5 - (digits / 2)));
+            var e = Math.Floor((Easting % 100000) / Math.Pow(10, 5 - 10 / 2));
 
-            var n = Math.Floor((Northing % 100000) / Math.Pow(10, 5 - (digits / 2)));
+            var n = Math.Floor((Northing % 100000) / Math.Pow(10, 5 - 10 / 2));
 
             // pad eastings & northings with leading zeros
 
-            var eString = e.ToString().PadLeft(digits / 2, '0');
+            var eastingString = e.ToString().PadLeft(10 / 2, '0');
 
-            var nString = n.ToString().PadLeft(digits / 2, '0');
+            var northingString = n.ToString().PadRight(10 / 2, '0');
 
-            return $"{letterPair} {eString} {nString}";
+            return $"{letterPair} {eastingString} {northingString}";
+
         }
     }
 }

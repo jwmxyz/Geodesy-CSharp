@@ -19,11 +19,11 @@ namespace Geodesy_CSharp.Controllers
         }
 
         /// <summary>
-        /// Will convert a given MGRS to a latitude / longitude coordinate
+        /// Will convert a given OSGridReference to a latitude / longitude coordinate
         /// </summary>
         /// <param name="OsGridReference">The string OsGridRefence reference</param>
         /// <returns>The latitude/longitude points or an error string</returns>
-        [HttpGet("latlon/{OsGridReference}")]
+        [HttpGet("{OsGridReference}/latlon")]
         [ProducesResponseType(typeof(LatLon_OsGridRef), 200)]
         [ProducesResponseType(typeof(string), 400)]
         public IActionResult OsGridrefToLatLon(string OsGridReference)
