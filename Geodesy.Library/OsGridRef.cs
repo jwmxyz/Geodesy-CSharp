@@ -2,10 +2,11 @@
 using Geodesy.Library.Exceptions;
 using Geodesy.Library.Extensions;
 using System;
+using System.Linq;
 
 namespace Geodesy.Library
 {
-    public class OsGridRef
+    public sealed class OsGridRef
     {
         public string Descriptor { get; }
         public double Easting { get; }
@@ -15,6 +16,12 @@ namespace Geodesy.Library
         {
             Descriptor = descriptor;
         }
+
+        /// <summary>
+        /// Constructor for OsGridReference obtained from an easting an northing value.
+        /// </summary>
+        /// <param name="easting">The easting value</param>
+        /// <param name="northing">The northing value</param>
 
         public OsGridRef(double easting, double northing)
         {
@@ -32,6 +39,21 @@ namespace Geodesy.Library
             Northing = northing;
         }
 
+        /// <summary>
+        /// Constructor for OsGridReference obtained from an easting an northing value, sets the descriptor.
+        /// </summary>
+        /// <param name="descriptor">The descriptor of os grid reference.</param>
+        /// <param name="easting">The easting value</param>
+        /// <param name="northing">The northing value</param>
+        public OsGridRef(string descriptor, double easting, double northing) : this(easting, northing)
+        {
+            Descriptor = descriptor;
+        }
+
+        /// <summary>
+        /// Constructor obtained from a string of an os grid reference.
+        /// </summary>
+        /// <param name="osGridReference">The os grid reference that will be parsed to return an object.</param>
         public OsGridRef(string osGridReference)
         {
             var gridRefFormatted = osGridReference.RemoveWhiteSpace();
@@ -160,7 +182,6 @@ namespace Geodesy.Library
         {
 
             // get the 100km-grid indices
-
             var e100km = Math.Floor(Easting / 100000);
             var n100km = Math.Floor(Northing / 100000);
 
@@ -190,6 +211,7 @@ namespace Geodesy.Library
             var northingString = n.ToString().PadRight(10 / 2, '0');
 
             return $"{letterPair} {eastingString} {northingString}";
+
         }
     }
 }

@@ -34,9 +34,9 @@ namespace Geodesy.Library
         {
         }
         /// <summary>
-        /// 
+        /// Constructor that takes a string to generate a MGRS object
         /// </summary>
-        /// <param name="mgrsReference"></param>
+        /// <param name="mgrsReference">The mgrs reference in string form.</param>
         public Mgrs(string mgrsReference)
         {
 
