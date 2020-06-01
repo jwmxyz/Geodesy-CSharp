@@ -21,7 +21,7 @@ namespace Geodesy_CSharp.Controllers
         /// </summary>
         /// <param name="mgrsReference">The string Mgrs reference</param>
         /// <returns>The latitude/longitude points or an error string</returns>
-        [HttpGet("latlon/{mgrsReference}")]
+        [HttpGet("{mgrsReference}/latlon")]
         [ProducesResponseType(typeof(Mgrs), 200)]
         [ProducesResponseType(typeof(string), 400)]
         public IActionResult MgrsToLatLon(string mgrsReference)
@@ -41,7 +41,7 @@ namespace Geodesy_CSharp.Controllers
         /// </summary>
         /// <param name="mgrsReference">The string Mgrs reference</param>
         /// <returns>The UTM object or an error string</returns>
-        [HttpGet("utm/{mgrsReference}")]
+        [HttpGet("{mgrsReference}/utm")]
         [ProducesResponseType(typeof(Utm), 200)]
         [ProducesResponseType(typeof(string), 400)]
         public IActionResult MgrsToUtm(string mgrsReference)

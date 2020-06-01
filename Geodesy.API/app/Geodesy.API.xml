@@ -4,6 +4,14 @@
         <name>Geodesy.API</name>
     </assembly>
     <members>
+        <member name="M:Geodesy_CSharp.Controllers.LatLonController.MgrsToLatLon(System.String,System.String)">
+            <summary>
+            Will convert a latitide longitude into a OSGridReference
+            </summary>
+            <param name="lat">The latitude of the position</param>
+            <param name="lon">The longitude of the position</param>
+            <returns>The latitude/longitude points or an error string</returns>
+        </member>
         <member name="M:Geodesy_CSharp.Controllers.MgrsController.MgrsToLatLon(System.String)">
             <summary>
             Will convert a given MGRS to a latitude / longitude coordinate
@@ -20,7 +28,7 @@
         </member>
         <member name="M:Geodesy_CSharp.Controllers.OsGridrefController.OsGridrefToLatLon(System.String)">
             <summary>
-            Will convert a given MGRS to a latitude / longitude coordinate
+            Will convert a given OSGridReference to a latitude / longitude coordinate
             </summary>
             <param name="OsGridReference">The string OsGridRefence reference</param>
             <returns>The latitude/longitude points or an error string</returns>
