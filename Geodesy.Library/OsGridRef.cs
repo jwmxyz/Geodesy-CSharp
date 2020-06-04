@@ -12,11 +12,6 @@ namespace Geodesy.Library
         public double Easting { get; }
         public double Northing { get; }
 
-        public OsGridRef(string descriptor, double easting, double northing) : this(easting, northing)
-        {
-            Descriptor = descriptor;
-        }
-
         /// <summary>
         /// Constructor for OsGridReference obtained from an easting an northing value.
         /// </summary>

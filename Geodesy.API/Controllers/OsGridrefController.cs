@@ -1,9 +1,7 @@
 ﻿using Geodesy.Library;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using NLog;
 using System;
-
 
 namespace Geodesy_CSharp.Controllers
 {
