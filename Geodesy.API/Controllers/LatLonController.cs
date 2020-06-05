@@ -29,13 +29,46 @@ namespace Geodesy_CSharp.Controllers
         [HttpGet("lat/{lat}/lon/{lon}/osGridRef")]
         [ProducesResponseType(typeof(OsGridRef), 200)]
         [ProducesResponseType(typeof(string), 400)]
-        public IActionResult MgrsToLatLon(string lat, string lon)
+        public IActionResult LatLonToOsGridRef(string lat, string lon)
         {
             try
             {
                 var latitude = double.Parse(lat);
                 var longitude = double.Parse(lon);
                 return Ok(new LatLon_OsGridRef(latitude, longitude).ToOSGridRef().ToString());
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet("lat/{lat}/lon/{lon}/utm")]
+        [ProducesResponseType(typeof(OsGridRef), 200)]
+        [ProducesResponseType(typeof(string), 400)]
+        public IActionResult LatLonToUtm(string lat, string lon)
+        {
+            try
+            {
+                var latitude = double.Parse(lat);
+                var longitude = double.Parse(lon);
+                return Ok(new LatLon_Utm(latitude, longitude).ToUtm().ToString());
+            } catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet("lat/{lat}/lon/{lon}/mgrs")]
+        [ProducesResponseType(typeof(OsGridRef), 200)]
+        [ProducesResponseType(typeof(string), 400)]
+        public IActionResult LatLonToMgrs(string lat, string lon)
+        {
+            try
+            {
+                var latitude = double.Parse(lat);
+                var longitude = double.Parse(lon);
+                return Ok(new Latlon_Utm_Mgrs(latitude, longitude).ToUtm().ToString());
             }
             catch (Exception e)
             {
