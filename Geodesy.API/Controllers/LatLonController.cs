@@ -68,7 +68,7 @@ namespace Geodesy_CSharp.Controllers
             {
                 var latitude = double.Parse(lat);
                 var longitude = double.Parse(lon);
-                return Ok(new Latlon_Utm_Mgrs(latitude, longitude).ToUtm().ToString());
+                return Ok(new Utm_Mgrs(new LatLon_Utm(latitude, longitude).ToUtm()).ToMgrs().ToString());
             }
             catch (Exception e)
             {

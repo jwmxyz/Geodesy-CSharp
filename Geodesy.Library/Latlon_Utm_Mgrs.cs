@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Geodesy.Library
+﻿namespace Geodesy.Library
 {
     public class Latlon_Utm_Mgrs : LatLon_Utm
     {

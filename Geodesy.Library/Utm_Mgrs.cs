@@ -24,6 +24,11 @@ namespace Geodesy.Library
 
         }
 
+        public Utm_Mgrs(Utm utm) : base(utm.ToString())
+        {
+
+        }
+
         /// <summary>
         /// Method that will convert a UTM grid reference into a MGRS grid reference.
         /// </summary>

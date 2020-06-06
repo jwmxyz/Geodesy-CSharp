@@ -34,5 +34,22 @@ namespace Geodesy_CSharp.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+
+        [HttpGet("{OsGridReference}/utm")]
+        [ProducesResponseType(typeof(LatLon_Utm), 200)]
+        [ProducesResponseType(typeof(string), 400)]
+        public IActionResult OsGridRefToUtm(string OsGridReference)
+        {
+            try
+            {
+                var osGridRefLatLon = new OsGridRef(OsGridReference).ToLatLon();
+                return Ok(new LatLon_Utm(osGridRefLatLon.Latitude, osGridRefLatLon.Longitude));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 }
