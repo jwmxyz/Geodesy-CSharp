@@ -6,26 +6,7 @@
 
 This is a C# implementation of the [Geodesy](https://github.com/chrisveness/geodesy) A JavaScript library originally developed by [Chris Veness](https://github.com/chrisveness).
 
-### Features
-
-- Swagger
-- Travis CI
-
-### Setup
-
-##### nuget
-
-todo
-
-##### dev
-
-Todo
-
-### API
-
-Todo
-
-
+### Version 1.0
 
 
 
