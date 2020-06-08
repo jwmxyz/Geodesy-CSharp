@@ -1,7 +1,14 @@
-﻿using Geodesy.Library.Extensions;
+﻿/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+/* 
+ * This is a C# implementation of the below: 
+ * 
+ * Geodesy tools for an ellipsoidal earth model                      
+ * https://www.movable-type.co.uk/scripts/geodesy/docs/osgridref.js.html
+ * 
+ * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+
+using Geodesy.Library.Extensions;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Geodesy.Library
 {

@@ -1,4 +1,14 @@
-﻿using Geodesy.Library.Classes.Datums;
+﻿/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+/* 
+ * This is a C# implementation of the below: 
+ * 
+ * Geodesy tools for an ellipsoidal earth model                      
+ * https://www.movable-type.co.uk/scripts/geodesy/docs/module-utm-LatLon_Utm.html
+ *  
+ * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+
+
+using Geodesy.Library.Classes.Datums;
 using Geodesy.Library.Exceptions;
 using Geodesy.Library.Extensions;
 using System;

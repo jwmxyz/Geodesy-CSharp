@@ -31,11 +31,16 @@ namespace Geodesy_CSharp.Controllers
                 return Ok(new OsGridRef(OsGridReference).ToLatLon());
             } catch (Exception e)
             {
-                return BadRequest(e.Message);
+                _logger.LogError(e.Message);
+                return BadRequest("Unable to convert from OS Grid Reference to LatLon.");
             }
         }
 
-
+        /// <summary>
+        /// Will convert a given OSGridReference to a LatLon UTM coordinate.
+        /// </summary>
+        /// <param name="OsGridReference">The string OsGridRefence reference</param>
+        /// <returns>The UTM object or an error string</returns>
         [HttpGet("{OsGridReference}/utm")]
         [ProducesResponseType(typeof(LatLon_Utm), 200)]
         [ProducesResponseType(typeof(string), 400)]
@@ -48,7 +53,8 @@ namespace Geodesy_CSharp.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest(e.Message);
+                _logger.LogError(e.Message);
+                return BadRequest("Unable to convert from OS Grid Reference to UTM.");
             }
         }
     }

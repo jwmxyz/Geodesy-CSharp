@@ -1,4 +1,13 @@
-﻿using Geodesy.Library.Enums;
+﻿/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+/* 
+ * This is a C# implementation of the below: 
+ * 
+ * Geodesy tools for an ellipsoidal earth model                      
+ * https://www.movable-type.co.uk/scripts/geodesy/docs/module-mgrs-Mgrs.html
+ * 
+ * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+
+using Geodesy.Library.Enums;
 using Geodesy.Library.Exceptions;
 using Geodesy.Library.Extensions;
 using System;

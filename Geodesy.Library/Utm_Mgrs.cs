@@ -1,4 +1,13 @@
-﻿using System;
+﻿/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+/* 
+ * This is a C# implementation of the below: 
+ * 
+ * Geodesy tools for an ellipsoidal earth model                      
+ * https://www.movable-type.co.uk/scripts/geodesy/docs/module-mgrs-Utm_Mgrs.html
+ * 
+ * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+
+using System;
 
 namespace Geodesy.Library
 {

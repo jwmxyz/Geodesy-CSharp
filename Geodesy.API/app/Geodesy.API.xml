@@ -4,13 +4,29 @@
         <name>Geodesy.API</name>
     </assembly>
     <members>
-        <member name="M:Geodesy_CSharp.Controllers.LatLonController.MgrsToLatLon(System.String,System.String)">
+        <member name="M:Geodesy_CSharp.Controllers.LatLonController.LatLonToOsGridRef(System.String,System.String)">
             <summary>
             Will convert a latitide longitude into a OSGridReference
             </summary>
             <param name="lat">The latitude of the position</param>
             <param name="lon">The longitude of the position</param>
             <returns>The latitude/longitude points or an error string</returns>
+        </member>
+        <member name="M:Geodesy_CSharp.Controllers.LatLonController.LatLonToUtm(System.String,System.String)">
+            <summary>
+            Will convert a latitide longitude into a UTM
+            </summary>
+            <param name="lat">The latitude of the position</param>
+            <param name="lon">The longitude of the position</param>
+            <returns>The UMT object or an error string</returns>
+        </member>
+        <member name="M:Geodesy_CSharp.Controllers.LatLonController.LatLonToMgrs(System.String,System.String)">
+            <summary>
+            Will convert a latitide longitude into a MGRS
+            </summary>
+            <param name="lat">The latitude of the position</param>
+            <param name="lon">The longitude of the position</param>
+            <returns>The MGRS object or an error string</returns>
         </member>
         <member name="M:Geodesy_CSharp.Controllers.MgrsController.MgrsToLatLon(System.String)">
             <summary>
@@ -32,6 +48,13 @@
             </summary>
             <param name="OsGridReference">The string OsGridRefence reference</param>
             <returns>The latitude/longitude points or an error string</returns>
+        </member>
+        <member name="M:Geodesy_CSharp.Controllers.OsGridrefController.OsGridRefToUtm(System.String)">
+            <summary>
+            Will convert a given OSGridReference to a LatLon UTM coordinate.
+            </summary>
+            <param name="OsGridReference">The string OsGridRefence reference</param>
+            <returns>The UTM object or an error string</returns>
         </member>
         <member name="M:Geodesy_CSharp.Controllers.UtmController.UtmToLatLon(System.String)">
             <summary>

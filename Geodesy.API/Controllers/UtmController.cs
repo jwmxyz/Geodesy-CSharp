@@ -32,7 +32,8 @@ namespace Geodesy_CSharp.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest(e.Message);
+                _logger.LogError(e.Message);
+                return BadRequest("Unable to convert from UTM to LatLon.");
             }
         }
 
@@ -52,7 +53,8 @@ namespace Geodesy_CSharp.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest(e.Message);
+                _logger.LogError(e.Message);
+                return BadRequest("Unable to convert from UTM to MGRS.");
             }
         }
     }
