@@ -4,7 +4,9 @@
 
 ### About
 
-This is a C# implementation of the [Geodesy](https://github.com/chrisveness/geodesy) A JavaScript library originally developed by [Chris Veness](https://github.com/chrisveness).
+This is a C# implementation of the [Geodesy](https://github.com/chrisveness/geodesy) 
+
+A JavaScript library originally developed by [Chris Veness](https://github.com/chrisveness).
 
 ### Version 1.0
 
