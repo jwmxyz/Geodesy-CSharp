@@ -12,7 +12,7 @@ namespace Geodesy.Tests
         {
             var gridRef = new Utm(31, 'N', 448251.795, 5411932.678);
             var latLon = gridRef.ToLatLon();
-            Assert.True(latLon.Longitude == 58.402896764004851 && latLon.Latitude == 33.066837013130389);
+            Assert.True(latLon.Longitude == 58.402900267077271 && latLon.Latitude == 33.066837364198967);
         }
 
         [Fact]
