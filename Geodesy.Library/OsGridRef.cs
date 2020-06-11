@@ -17,15 +17,14 @@ namespace Geodesy.Library
     public sealed class OsGridRef
     {
         public string Descriptor { get; }
-        public double Easting { get; }
-        public double Northing { get; }
+        public int Easting { get; }
+        public int Northing { get; }
 
         /// <summary>
         /// Constructor for OsGridReference obtained from an easting an northing value.
         /// </summary>
         /// <param name="easting">The easting value</param>
         /// <param name="northing">The northing value</param>
-
         public OsGridRef(double easting, double northing)
         {
             if (easting < 0 || easting > 700e3)
@@ -38,8 +37,8 @@ namespace Geodesy.Library
                 throw new InvalidReferencePropertyException<OSGridRefEnum>(GetType(), OSGridRefEnum.Northing, $"Invalid Northing {northing}");
             }
 
-            Easting = easting;
-            Northing = northing;
+            Easting = Convert.ToInt32(easting);
+            Northing = Convert.ToInt32(northing);
         }
 
         /// <summary>
@@ -60,7 +59,6 @@ namespace Geodesy.Library
         public OsGridRef(string osGridReference)
         {
             var gridRefFormatted = osGridReference.RemoveWhiteSpace();
-
 
             var descriptor = osGridReference.Substring(0, 2);
             var eastingNorthing = gridRefFormatted[2..];
@@ -185,8 +183,8 @@ namespace Geodesy.Library
         {
 
             // get the 100km-grid indices
-            var e100km = Math.Floor(Easting / 100000);
-            var n100km = Math.Floor(Northing / 100000);
+            var e100km = Math.Floor((double) Easting / 100000);
+            var n100km = Math.Floor((double) Northing / 100000);
 
             // translate those into numeric equivalents of the grid letters
             var l1 = (19 - n100km) - (19 - n100km) % 5 + Math.Floor((e100km + 10) / 5);
@@ -216,5 +214,11 @@ namespace Geodesy.Library
             return $"{letterPair} {eastingString} {northingString}";
 
         }
+
+        private void SetDescriptor()
+        {
+
+        }
+
     }
 }

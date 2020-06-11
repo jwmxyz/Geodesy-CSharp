@@ -35,8 +35,8 @@ namespace Geodesy.Library
         public char E100k { get; }
         public char N100k { get; }
         public char Band { get; }
-        public double Easting { get; }
-        public double Northing { get; }
+        public int Easting { get; }
+        public int Northing { get; }
 
         public Mgrs(int zone, char band, char e100k, char n100k, double northing, double easting) 
             : this($"{zone}{band}{e100k}{n100k}{northing}{easting}")
@@ -119,8 +119,8 @@ namespace Geodesy.Library
             Band = band;
             E100k = e100k;
             N100k = n100k;
-            Easting = eastingDouble;
-            Northing = northingDouble;
+            Easting = Convert.ToInt32(eastingDouble);
+            Northing = Convert.ToInt32(northingDouble);
         }
 
         /// <summary>
