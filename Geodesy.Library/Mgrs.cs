@@ -38,6 +38,14 @@ namespace Geodesy.Library
         public int Easting { get; }
         public int Northing { get; }
 
+        public string StringValue
+        {
+            get
+            {
+                return this.ToString();
+            }
+        }
+
         public Mgrs(int zone, char band, char e100k, char n100k, double northing, double easting) 
             : this($"{zone}{band}{e100k}{n100k}{northing}{easting}")
         {

@@ -20,6 +20,14 @@ namespace Geodesy.Library
         public int Easting { get; }
         public int Northing { get; }
 
+        public string StringValue
+        {
+            get
+            {
+                return this.ToString();
+            }
+        }
+
         /// <summary>
         /// Constructor for OsGridReference obtained from an easting an northing value.
         /// </summary>
@@ -181,10 +189,9 @@ namespace Geodesy.Library
 
         public override string ToString()
         {
-
             // get the 100km-grid indices
-            var e100km = Math.Floor((double) Easting / 100000);
-            var n100km = Math.Floor((double) Northing / 100000);
+            var e100km = Math.Floor((double)Easting / 100000);
+            var n100km = Math.Floor((double)Northing / 100000);
 
             // translate those into numeric equivalents of the grid letters
             var l1 = (19 - n100km) - (19 - n100km) % 5 + Math.Floor((e100km + 10) / 5);
@@ -197,7 +204,7 @@ namespace Geodesy.Library
 
             if (l2 > 7) l2++;
 
-            var letterPair = $"{Convert.ToChar((int) (l1 + 'A'))}{Convert.ToChar((int) (l2 + 'A'))}";
+            var letterPair = $"{Convert.ToChar((int)(l1 + 'A'))}{Convert.ToChar((int)(l2 + 'A'))}";
 
             // strip 100km-grid indices from easting & northing, and reduce precision
 

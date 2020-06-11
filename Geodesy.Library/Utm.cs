@@ -19,10 +19,17 @@ namespace Geodesy.Library
     {
 
         #region Getters
-        public double Northing { get; }
-        public double Easting { get; }
+        public int Northing { get; }
+        public int Easting { get; }
         public int Zone { get; }
         public char Hemisphere { get; }
+        public string StringValue
+        {
+            get
+            {
+                return this.ToString();
+            }
+        }
         #endregion
 
 
@@ -37,8 +44,8 @@ namespace Geodesy.Library
         {
             Zone = zone;
             Hemisphere = char.ToUpper(hemisphere);
-            Easting = easting;
-            Northing = northing;
+            Easting = Convert.ToInt32(easting);
+            Northing = Convert.ToInt32(northing);
         }
 
         /// <summary>
@@ -106,8 +113,8 @@ namespace Geodesy.Library
 
             Zone = zone;
             Hemisphere = char.ToUpperInvariant(hemisphere);
-            Easting = easting;
-            Northing = northing;
+            Easting = Convert.ToInt32(easting);
+            Northing = Convert.ToInt32(northing);
         }
 
         /// <summary>
