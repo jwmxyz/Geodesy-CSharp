@@ -73,6 +73,14 @@ namespace Geodesy.Library
             }
         }
 
+        public string StringValue
+        {
+            get
+            {
+                return $"Latitude: {Latitude}, Longitude: {Longitude}";
+            }
+        }
+
         /// <summary>
         /// Converts ‘this’ point from (geodetic) latitude/longitude coordinates to (geocentric)
         /// </summary>

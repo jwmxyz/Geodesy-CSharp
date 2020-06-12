@@ -22,7 +22,7 @@ namespace Geodesy_CSharp.Controllers
         /// <param name="mgrsReference">The string Mgrs reference</param>
         /// <returns>The latitude/longitude points or an error string</returns>
         [HttpGet("{mgrsReference}/latlon")]
-        [ProducesResponseType(typeof(Mgrs), 200)]
+        [ProducesResponseType(typeof(LatLon_Utm), 200)]
         [ProducesResponseType(typeof(string), 400)]
         public IActionResult MgrsToLatLon(string mgrsReference)
         {

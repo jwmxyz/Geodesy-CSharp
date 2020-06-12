@@ -42,14 +42,14 @@ namespace Geodesy_CSharp.Controllers
         /// <param name="OsGridReference">The string OsGridRefence reference</param>
         /// <returns>The UTM object or an error string</returns>
         [HttpGet("{OsGridReference}/utm")]
-        [ProducesResponseType(typeof(LatLon_Utm), 200)]
+        [ProducesResponseType(typeof(Utm), 200)]
         [ProducesResponseType(typeof(string), 400)]
         public IActionResult OsGridRefToUtm(string OsGridReference)
         {
             try
             {
                 var osGridRefLatLon = new OsGridRef(OsGridReference).ToLatLon();
-                return Ok(new LatLon_Utm(osGridRefLatLon.Latitude, osGridRefLatLon.Longitude));
+                return Ok(new LatLon_Utm(osGridRefLatLon.Latitude, osGridRefLatLon.Longitude).ToUtm());
             }
             catch (Exception e)
             {

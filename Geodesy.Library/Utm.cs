@@ -17,7 +17,6 @@ namespace Geodesy.Library
 {
     public class Utm
     {
-
         #region Getters
         public int Northing { get; }
         public int Easting { get; }
