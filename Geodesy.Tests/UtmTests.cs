@@ -16,6 +16,22 @@ namespace Geodesy.Tests
         }
 
         [Fact]
+        public void CorrectlyParseLatLon()
+        {
+            var gridRef = new Utm("31 N 448251 5411932");
+            Assert.True(gridRef.Northing == 5411932);
+            Assert.True(gridRef.Zone == 31);
+            Assert.True(gridRef.Hemisphere == 'N');
+            Assert.True(gridRef.Easting == 448251);
+        }
+
+        [Fact]
+        public void InCorrectlyParseLatLonWithIregularFormat()
+        {
+            Assert.Throws<ReferenceParsingException>(() => new Utm("31n4482515411932"));
+        }
+
+        [Fact]
         public void ErrorIfInvalidFormat()
         {
             Assert.Throws<ReferenceParsingException>(() => new Utm("random String"));
